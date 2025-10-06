@@ -1,16 +1,18 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
 
-V1 = src/ls-v1.0.0.c
-V2 = src/ls-v1.1.0.c
+SRC_V1 = src/ls-v1.0.0.c
+SRC_V2 = src/ls-v1.1.0.c
 
-all: ls-v1.0.0 ls-v1.1.0
+BIN_DIR = bin
 
-ls-v1.0.0: $(V1)
-	$(CC) $(CFLAGS) -o ls-v1.0.0 $(V1)
+all: $(BIN_DIR)/ls-v1.0.0 $(BIN_DIR)/ls-v1.1.0
 
-ls-v1.1.0: $(V2)
-	$(CC) $(CFLAGS) -o ls-v1.1.0 $(V2)
+$(BIN_DIR)/ls-v1.0.0: $(SRC_V1)
+	$(CC) $(CFLAGS) -o $@ $<
+
+$(BIN_DIR)/ls-v1.1.0: $(SRC_V2)
+	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f ls-v1.0.0 ls-v1.1.0
+	rm -f $(BIN_DIR)/ls-v1.0.0 $(BIN_DIR)/ls-v1.1.0
