@@ -1,49 +1,16 @@
-# ----------------------------
-# Makefile for lsv1.0.0 Project
-# ----------------------------
-
-# Compiler
 CC = gcc
+CFLAGS = -Wall -Wextra
 
-# Directories
-SRC_DIR = src
-BIN_DIR = bin
-OBJ_DIR = obj
+V1 = src/ls-v1.0.0.c
+V2 = src/ls-v1.1.0.c
 
-# Target executable name
-TARGET = $(BIN_DIR)/ls
+all: ls-v1.0.0 ls-v1.1.0
 
-# Source and Object files
-SRC = $(SRC_DIR)/ls-v1.0.0.c
-OBJ = $(OBJ_DIR)/ls-v1.0.0.o
+ls-v1.0.0: $(V1)
+	$(CC) $(CFLAGS) -o ls-v1.0.0 $(V1)
 
-# Compiler flags
-CFLAGS = -Wall -Wextra -std=c11
+ls-v1.1.0: $(V2)
+	$(CC) $(CFLAGS) -o ls-v1.1.0 $(V2)
 
-# Default rule
-all: $(TARGET)
-
-# Build rule: compile and link
-$(TARGET): $(OBJ)
-	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
-	@echo "✅ Build successful! Executable created at $(TARGET)"
-
-# Compile .c to .o
-$(OBJ): $(SRC)
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $(SRC) -o $(OBJ)
-	@echo "Compiled: $(SRC) -> $(OBJ)"
-
-# Run the program
-run: all
-	@echo "Running program..."
-	@$(TARGET)
-
-# Clean compiled files
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
-	@echo "🧹 Cleaned all build files."
-
-# Phony targets (not real files)
-.PHONY: all clean run
+	rm -f ls-v1.0.0 ls-v1.1.0
