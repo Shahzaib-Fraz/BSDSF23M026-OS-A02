@@ -1,18 +1,23 @@
+# Makefile for ls v1.2.0 - Column Display
+# Compiles src/ls-v1.1.2.c into ls binary
+
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -std=c99 -D_POSIX_C_SOURCE=200809L
+SRC = src/ls-v1.1.2.c
+BIN = ls
 
-SRC_V1 = src/ls-v1.0.0.c
-SRC_V2 = src/ls-v1.1.0.c
+.PHONY: all clean release
 
-BIN_DIR = bin
+all: $(BIN)
 
-all: $(BIN_DIR)/ls-v1.0.0 $(BIN_DIR)/ls-v1.1.0
-
-$(BIN_DIR)/ls-v1.0.0: $(SRC_V1)
-	$(CC) $(CFLAGS) -o $@ $<
-
-$(BIN_DIR)/ls-v1.1.0: $(SRC_V2)
-	$(CC) $(CFLAGS) -o $@ $<
+$(BIN): $(SRC)
+	$(CC) $(CFLAGS) -o $(BIN) $(SRC)
 
 clean:
-	rm -f $(BIN_DIR)/ls-v1.0.0 $(BIN_DIR)/ls-v1.1.0
+	rm -f $(BIN)
+	rm -rf release
+
+release: all
+	@echo "Packaging release binary for v1.2.0..."
+	@mkdir -p release
+	cp $(BIN) release/ls-v1.2.0
