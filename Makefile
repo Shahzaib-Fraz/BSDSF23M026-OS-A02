@@ -1,4 +1,3 @@
-# Makefile
 CC = gcc
 CFLAGS = -Wall -Wextra -O2
 TARGET = bin/ls
