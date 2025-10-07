@@ -1,13 +1,15 @@
+# Makefile
 CC = gcc
-CFLAGS = -Wall -Wextra -g
-SRC = src/ls.c
-BIN = bin/ls
+CFLAGS = -Wall -Wextra -O2
+TARGET = bin/ls
 
-all: $(BIN)
+all: $(TARGET)
 
-$(BIN): $(SRC)
-	@mkdir -p bin
-	$(CC) $(CFLAGS) -o $@ $<
+$(TARGET): src/ls.c
+	mkdir -p bin
+	$(CC) $(CFLAGS) -o $(TARGET) src/ls.c
 
 clean:
 	rm -rf bin
+
+.PHONY: all clean
